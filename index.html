@@ -9,20 +9,38 @@
   <div id="main-content">
     <h1 style.font = "Georgia">RecipeBook</h1>
 
+    
   
-    <form id ="UserLogin" action ="" method="POST">
+    <form id ="userLogin" action ="" method="POST">
       <label for="User Login">Sign In</label>
       <input type="text" id="userName" placeholder ="User Name" name="usersname">
       <input type = "submit" value="Submit" id="usrlog">
-      <input type="submit" value="Create an Account" id ="createbutton">
+      <input type= "submit" value="Create an Account" id ="createbutton">
+    </form>
 
+     <button id="displayNewRecipe">New Recipe</button>
+
+    </div>
     <div id="recipeCollection" >
+
+      <form id ="newrecipe">
+        <label for="newrecipe">Recipe Name</label>
+        <input type="text" class="newrecipe">
+        <input type="submit" value="new-recipe">
+      </form>
+
+    <form id="addIngredient" action="" method="POST">
+      <label for="new-ingredient">Ingredients</label>
+      <input id="new-ingredient" placeholder="yumm...">
+      <input type="submit" value="ingredients">
     </form>
-    <form id="create-task-form" action="" method="POST">
-      <label for="new-task-description">Task description:</label>
-      <input type="text" id="new-task-description" name="new-task-description" placeholder="description">
-      <input type="submit" value="Create New Task">
-    </form>
+
+  </form>
+  <form id="steps" action="" method="POST">
+    <label for="new-task-description">Ingredients</label>
+    <textarea  type="text" id="newstep" name="newstep"></textarea>
+    <input type="submit" value="steps">
+  </form>
 
     <div id="list">
       <h2>Name</h2>
@@ -32,19 +50,25 @@
 
     <div id="list">
       <h2>Steps</h2>
-      <ul id="ing">
+      <ul id="steps">
       </ul>
     </div>
 
     <div id="list">
       <h2>Ingredients</h2>
-      <ul id="tasks">
+      <ul id="ingredients">
       </ul>
     </div>
+  </div>
 
+  <div id="list">
+    <h2>Other Recipes</h2>
+    <ul id="recipes">
+    </ul>
+  </div>
     <script defer src="./index.js"></script>
   </div>
-  </div>
+
 
 </body>
 </html>

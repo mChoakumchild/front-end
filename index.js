@@ -1,36 +1,76 @@
-let form = document.querySelector("#create-task-form") // form containing child elements like textbox and submit
-let taskDescriptionText = document.querySelector("#new-task-description") // textbox
-let taskList = document.querySelector("ul#tasks") // The parent element where user input text elements go
-let taskHeader = document.querySelector("h2") // Location where the selector and option tag elements go
-let userLogin = document.querySelector("#UserLogin");
-let recipeCollection = document.querySelector("#recipeCollection")
-let userName = document.querySelector("UserLogin li usersname")
-let num = 0; //Number that iterates for giving tags, ids
-let deleteB; //delete button
 
-userLogin.addEventListener("submit", (event) => {
-  let usernameinput = userName.value
-  let userpasswordinput = userpassword.value
-// if the create new account button is pressed
- if (userLogin.createbutton == event.target){
+
+//userinfo
+let userLogin = document.querySelector("form#userLogin"); //form
+let userName = document.querySelector("UserLogin li usersname") //username input
+let addRecipe = true;
+//new recipe
+let newRecipeform = document.querySelector("form#newrecipe");
+let newRecipeName = newRecipeform.querySelector("newrecipe")
+let newRecipeDisplayButton = document.querySelector("button#displayNewRecipe")
+let newRecipeInfoButton = newRecipeform.querySelector("new-recipe")
+
+
+// Collection of all inputs to make a new recipe
+let recipeCollection = document.querySelector("div#recipeCollection")
+
+//steps form userinput and submit button and parent element where list should go
+
+// ingredient form userinput and submit button and parent element where list should go
+let form = document.querySelector("form#addIngredient") // form containing child elements like textbox and submit
+let taskDescriptionText = form.querySelector("#new-ingredient") // textbox
+let ingredientList = document.querySelector("ul#ingredients") // The parent element where user input text elements go
+let num = 0; 
+let deleteB; 
+
+// other older recipes
+let recipesList = document.querySelector("ul#recipes")
+
+function newRecipeInputs (addRecipe) { 
+if (addRecipe) {
+  recipeCollection.style.display = "block"
+} else {
+  recipeCollection.style.display = "none"
+}
+}
+
+
+// newRecipe button is pressed
+newRecipeDisplayButton.addEventListener("click", (event) =>{
+  event.preventDefault()
+  addRecipe = !addRecipe;
+  newRecipeInputs (addRecipe)
+// We need to add a new recipe object to the recipes array
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+      "Content-text": "application/json"
+      },
+      body: JSON.stringify({
+      recipes: recipes.name.push({
+        name: newRecipeName,
+        "likes": 0,
+        "servings" : 0,
+        "foodpic": "",
+        "ingredients": [""],
+        "steps": [""],
+        "date": "04/19/21"
+        })
+      })  
+    })
+  .then(res => res.json())
+  .then(res => {
+   
+
+  })
+})
+
+
+  userLogin.addEventListener("submit", (event) => {
+    event.preventDefault()
     let userName = userLogin.li.usersname.value 
-
-        fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-        "Content-text": "application/json"
-        },
-        body: JSON.stringify({
-        username: event.target[0].value,
-        recipies: [],
-        profilepic: ""
-    }) })
-      .then((r) => r.json())
-      .then((userObj) => console.log(userObj));
-    }
+    let usernameinput = userName.value
  // if the submit username and password button is pressed
-  else {
-      
     fetch("http://localhost:3000/users")
     .then(res => res.json())
     .then(res => {
@@ -38,6 +78,12 @@ userLogin.addEventListener("submit", (event) => {
         if (user.username == usernameinput){
           console.log("welcome")
           recipeCollection.style.display = "block"
+          user.recipes.forEach(recipe => { 
+            let recipetitle = document.createElement('li')  // Appends the name of each prior recipe to a new block
+            recipetitle.innerText = recipe.name
+            recipesList.append(recipetitle)
+          }
+          )
         }
         else 
         {
@@ -46,8 +92,8 @@ userLogin.addEventListener("submit", (event) => {
         }
       })
     })
-  }
-})
+  })
+
 
 
 
@@ -79,11 +125,11 @@ function usrInfo(num) {
   //newTask.append(usrTxt)
   newTask.append(editB)
   newTask.append(deleteB)
-  taskList.append(newTask)
+  ingredientList.append(newTask)
 }
 
 // Delete function
-taskList.addEventListener("click", (e) => {  //listens to children of parent taskList ("ul") element
+ingredientList.addEventListener("click", (e) => {  //listens to children of parent taskList ("ul") element
   e.preventDefault()   //This prevents page refresh
   let indx = e.target.closest('li');   //.closest() method finds element closest to the target with tag "li"
   if (!indx) return;        //If there is no element the function ends
@@ -97,7 +143,6 @@ taskList.addEventListener("click", (e) => {  //listens to children of parent tas
   }
   return num;
   });
-
 
 
 
