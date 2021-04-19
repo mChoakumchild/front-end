@@ -10,7 +10,7 @@ let newRecipeform = document.querySelector("form#newrecipe");
 let newRecipeName = newRecipeform.querySelector("newrecipe")
 let newRecipeDisplayButton = document.querySelector("button#displayNewRecipe")
 let newRecipeInfoButton = newRecipeform.querySelector("new-recipe")
-
+let submitnewRecipe = document.querySelector("button#SubmitNewRecipe")
 
 // Collection of all inputs to make a new recipe
 let recipeCollection = document.querySelector("div#recipeCollection")
@@ -41,6 +41,11 @@ newRecipeDisplayButton.addEventListener("click", (event) =>{
   event.preventDefault()
   addRecipe = !addRecipe;
   newRecipeInputs (addRecipe)
+
+
+})
+
+submitnewRecipe.addEventListener("click", (event)=> { 
 // We need to add a new recipe object to the recipes array
     fetch("http://localhost:3000/users", {
       method: "POST",
