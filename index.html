@@ -18,49 +18,39 @@
       <input type= "submit" value="Create an Account" id ="createbutton">
     </form>
 
-     <button id="displayNewRecipe">New Recipe</button>
+    <!-- <button id="displayNewRecipe">New Recipe</button> -->
 
     </div>
     <div id="recipeCollection" >
-
-      
-
+      <button  id="submitNewRecipe" >Submit New Recipe</button>
+      <button  id="deleteRecipe" >Delete Recipe</button>
+  
+      <h2 id="recipename">Name</h2>
       <form id ="newrecipe">
-        <label for="newrecipe">Recipe Name</label>
+        <!-- <label for="newrecipe">Recipe Name</label> -->
         <input type="text" class="newrecipe">
         <input type="submit" id="new-recipe">
-        <input type="submit" id="submitNewRecipe" value="Submit New Recipe">
-        <input type="submit" id="deleteRecipe" value="Delete Recipe">
       </form>
+     
 
-  
-
-  </form>
-  <form id="steps" action="" method="POST">
-    <label for="new-task-description">Steps</label>
-    <textarea  type="text" id="newstep" name="newstep"></textarea>
-    <input type="submit" value="steps">
-  </form>
-
-    <div id="list">
-      <h2>Name</h2>
-      <ul id="ing">
-      </ul>
-    </div>
-
-    <div id="list">
+    <div id="stepslist"> 
       <h2>Steps</h2>
+      <form id="steps" action="" method="POST">
+        <!-- <label for="new-task-description">Steps</label> -->
+        <textarea  type="text" id="newstep" name="newstep"></textarea>
+        <input type="submit" id="stepbutton" value="Submit Direction">
+      </form>  
       <ul id="steps">
       </ul>
     </div>
 
-    <div id="list">
-      <form id="addIngredient" action="" method="POST">
-        <label for="new-ingredient">Ingredients</label>
-        <input id="new-ingredient" placeholder="yumm...">
-        <input type="submit" id="ingredientsbutton" value="ingredients">
-      </form>
+    <div id="ingredientslist">
       <h2>Ingredients</h2>
+      <form id="addIngredient" action="" method="POST">
+        <!-- <label for="new-ingredient">Ingredients</label> -->
+        <input id="new-ingredient" placeholder="yumm...">
+        <input type="submit" id="ingredientsbutton" value="Submit Ingredient">
+      </form>
       <ul id="ingredients">
       </ul>
     </div>
