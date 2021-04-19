@@ -3,7 +3,8 @@
 //userinfo
 let userLogin = document.querySelector("form#userLogin"); //form
 let userName = document.querySelector("UserLogin li usersname") //username input
-let addRecipe = true;
+let addRecipe = false;
+
 //new recipe
 let newRecipeform = document.querySelector("form#newrecipe");
 let newRecipeName = newRecipeform.querySelector("newrecipe")
@@ -34,7 +35,7 @@ if (addRecipe) {
 }
 }
 
-
+newRecipeInputs (addRecipe)
 // newRecipe button is pressed
 newRecipeDisplayButton.addEventListener("click", (event) =>{
   event.preventDefault()
