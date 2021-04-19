@@ -6,11 +6,11 @@ let userName = document.querySelector("UserLogin li usersname") //username input
 let addRecipe = false;
 
 //new recipe
-let newRecipeform = document.querySelector("form#newrecipe");
-let newRecipeName = newRecipeform.querySelector("newrecipe")
+let newRecipeButton = document.querySelector("input#new-recipe");
+let newRecipeName = document.querySelector("input.newrecipe")
 let newRecipeDisplayButton = document.querySelector("button#displayNewRecipe")
-let newRecipeInfoButton = newRecipeform.querySelector("new-recipe")
-let submitnewRecipe = document.querySelector("button#SubmitNewRecipe")
+let newRecipeInfoButton = document.querySelector("input#new-recipe")
+let submitnewRecipe = document.querySelector("input#submitNewRecipe")
 
 // Collection of all inputs to make a new recipe
 let recipeCollection = document.querySelector("div#recipeCollection")
@@ -21,6 +21,7 @@ let recipeCollection = document.querySelector("div#recipeCollection")
 let form = document.querySelector("form#addIngredient") // form containing child elements like textbox and submit
 let taskDescriptionText = form.querySelector("#new-ingredient") // textbox
 let ingredientList = document.querySelector("ul#ingredients") // The parent element where user input text elements go
+
 let num = 0; 
 let deleteB; 
 
@@ -36,16 +37,17 @@ if (addRecipe) {
 }
 
 newRecipeInputs (addRecipe)
-// newRecipe button is pressed
+// This is the display new recipe button
 newRecipeDisplayButton.addEventListener("click", (event) =>{
   event.preventDefault()
   addRecipe = !addRecipe;
-  newRecipeInputs (addRecipe)
+  newRecipeInputs(addRecipe)
 
 
 })
-
+// This is the submit new recipe button
 submitnewRecipe.addEventListener("click", (event)=> { 
+  event.preventDefault()
 // We need to add a new recipe object to the recipes array
     fetch("http://localhost:3000/users", {
       method: "POST",

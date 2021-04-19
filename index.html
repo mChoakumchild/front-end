@@ -23,19 +23,17 @@
     </div>
     <div id="recipeCollection" >
 
-      <button id="SubmitNewRecipe">Submit New Recipe</button>
+      
 
       <form id ="newrecipe">
         <label for="newrecipe">Recipe Name</label>
         <input type="text" class="newrecipe">
-        <input type="submit" value="new-recipe">
+        <input type="submit" id="new-recipe">
+        <input type="submit" id="submitNewRecipe" value="Submit New Recipe">
+        <input type="submit" id="deleteRecipe" value="Delete Recipe">
       </form>
 
-    <form id="addIngredient" action="" method="POST">
-      <label for="new-ingredient">Ingredients</label>
-      <input id="new-ingredient" placeholder="yumm...">
-      <input type="submit" value="ingredients">
-    </form>
+  
 
   </form>
   <form id="steps" action="" method="POST">
@@ -57,6 +55,11 @@
     </div>
 
     <div id="list">
+      <form id="addIngredient" action="" method="POST">
+        <label for="new-ingredient">Ingredients</label>
+        <input id="new-ingredient" placeholder="yumm...">
+        <input type="submit" id="ingredientsbutton" value="ingredients">
+      </form>
       <h2>Ingredients</h2>
       <ul id="ingredients">
       </ul>
