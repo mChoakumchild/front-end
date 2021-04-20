@@ -1,43 +1,42 @@
-
-
+//Title
+let recipebooktitle = document.querySelector("h1")
 //USER SIGN IN
 let userLogin = document.querySelector("form#userLogin"); //form
-let userName = document.querySelector("UserLogin li usersname") //username input
-//let addRecipe = false;
-
-//Display new recipe button
+let userNameInput = document.querySelector("input#userName") //username input
+//Edit option button
 //let newRecipeDisplayButton = document.querySelector("button#displayNewRecipe")
 
 //NEW RECIPE
-let newRecipeForm = document.querySelector("form#newrecipe");
-let newRecipeTitle = document.querySelector("h2#recipename");
-//Text box and submit button
-let newRecipeNameButton = document.querySelector("input#new-recipe");
+let newRecipeForm = document.querySelector("form#newrecipe");// Name Form
+let newRecipeTitle = document.querySelector("h2#recipename"); // Recipe Title
 let newRecipeName = document.querySelector("input.newrecipe")
-//Submit recipe as a new recipe button
-let submitnewRecipe = document.querySelector("button#submitNewRecipe")
-//Delete a recipe
-let deleteRecipe = document.querySelector('button#deleteRecipe')
+// LIST OF recipes
+let recipesList = document.querySelector("ul#recipes")
 // Collection of all inputs to make a new recipe
 let recipeCollection = document.querySelector("div#recipeCollection")
-
 //STEPS
 //steps form userinput and submit button and parent element where list should go
 let stepstext = document.querySelector("textarea#newstep")
 let stepsButton = document.querySelector("form#steps")
-let stepsList = document.querySelector("ul#steps")
+let stepsList = document.querySelector("ol#steps")
 //INGREDIENTS
 // ingredient form userinput and submit button and parent element where list should go
-let form = document.querySelector("form#addIngredient") // form containing child elements like textbox and submit
-let taskDescriptionText = form.querySelector("#new-ingredient") // textbox
+let ingredientform = document.querySelector("form#addIngredient") // form containing child elements like textbox and submit
+let ingredientText = ingredientform.querySelector("#new-ingredient") // textbox
 let ingredientList = document.querySelector("ul#ingredients") // The parent element where user input text elements go
-
-//
-let num = 0; 
+//DELTE and SUBMIT a NEW RECIPE
+//Submit recipe as a new recipe button
+let submitnewRecipe = document.querySelector("button#submitNewRecipe")
+//Delete a recipe
+let deleteRecipe = document.querySelector('button#deleteRecipe')
 let deleteB; 
+//Ingredients Array
+let ing = []
+//Steps Array
+let steps = []
+//Time since 1970
+let date = d.getTime();
 
-// other older recipes
-let recipesList = document.querySelector("ul#recipes")
 
 // function newRecipeInputs (addRecipe) { 
 // if (addRecipe) {
@@ -58,103 +57,95 @@ let recipesList = document.querySelector("ul#recipes")
 // })
 
 
-// This is the submit new recipe name button
-submitnewRecipe.addEventListener("click", (event)=> { 
+// EVENT LISTENER for new recipe
+submitnewRecipe.addEventListener("submit", (event)=> { 
   event.preventDefault()
-  num +=1;
-
-// We need to add a new recipe object to the recipes array
+// let newingr = steps.push(stepsList.childNodes.innerText)
+//let newsteps = ing.push(ingredientList.childNodes.innerText)
+  //  let newname = newRecipeName.value
+  // let newDate = 
     fetch("http://localhost:3000/users", {
       method: "POST",
       headers: {
       "Content-text": "application/json"
       },
       body: JSON.stringify({
-      recipes: recipes.name.push({
-        name: newRecipeName,
+      recipes: recipes.push({
+        "name": newname,
         "likes": 0,
         "servings" : 0,
         "foodpic": "",
-        "ingredients": [""],
-        "steps": [""],
+        "ingredients": newingr,
+        "steps": newsteps,
         "date": "04/19/21"
         })
       })  
     })
   .then(res => res.json())
   .then(res => {
-   
 
   })
 })
 
+// // EVENT LISTENER login
+//   userLogin.addEventListener("submit", (event) => {
+//     event.preventDefault()
+//     let usernameinput = userNameInput.value 
+//  // Get all USERS
+//     fetch("http://localhost:3000")
+//     .then(res => res.json())
+//     .then(res => {
+//       res.forEach(user => { 
+//         // USER DISPLAY OPTIONS
+//         //1. BUTTONS WITH "USER NAME"
+//         //2. LOGIN FORM
 
-  userLogin.addEventListener("submit", (event) => {
-    event.preventDefault()
-    let userName = userLogin.li.usersname.value 
-    let usernameinput = userName.value
- // if the submit username and password button is pressed
-    fetch("http://localhost:3000/users")
-    .then(res => res.json())
-    .then(res => {
-      res.forEach(user => { 
-        if (user.username == usernameinput){
-          console.log("welcome")
-          recipeCollection.style.display = "block"
-          user.recipes.forEach(recipe => { 
-            let recipetitle = document.createElement('li')  // Appends the name of each prior recipe to a new block
-            recipetitle.innerText = recipe.name
-            recipesList.append(recipetitle)
-          }
-          )
-        }
-        else 
-        {
-          console.log("Try again")
-          recipeCollection.style.display = "none"
-        }
-      })
-    })
-  })
+//       //let userNameTag = document.createElement('button')
+
+//       //DISPLAY THE INFO IF THE USERNAME MATCHES THE NAME
+//         if (user.username == usernameinput){
+       
+//           user.recipes.forEach(recipe => { 
+//             //LIST ALL THIS USER'S recipes  
+//             let recipetitle = document.createElement('li')  
+//             recipetitle.innerText = recipe.name
+//             recipesList.append(recipetitle)
+//           }
+//           )
+//         }
+       
+//       })
+//     })
+//   })
 
 
 
 
-//Event listener for the new name button
+//EVENT LISTENER for the new name button
 newRecipeForm.addEventListener("submit", (event)=>{
   event.preventDefault()
   newRecipeTitle.innerText = newRecipeName.value;
 
+
 })
 
-
-
-//Event listener for submit direction button
-
+//EVENT LISTENER for submit direction button
 stepsButton.addEventListener("submit", (event)=> {
   event.preventDefault();
-  console.log("ahahaha")
-  num +=1;
-  usrInfo(stepstext, stepsList)
-  return num
+  newLine(stepstext, stepsList)
+
 })
 
-
-
-// Event listener for Submit Ingredient Button
-form.addEventListener("submit", (e) => {  //event listener hears "submit" event from form element
-  e.preventDefault()//keep from refreshing
-  num +=1; // number iterates up 1
-  usrInfo(taskDescriptionText,ingredientList) //calls a function usrInfo for the users information to be obtained need num to be passed in
-  return num
+// EVENT LISTENER for Submit Ingredient Button
+form.addEventListener("submit", (e) => {  
+  e.preventDefault()
+  newLine(recipeText,ingredientList) 
 });
 
-
-//Stores user input and creates new innerText, input text box, and button
-function usrInfo(taskDescription, list) { 
-//Storing User Information
-  let newTask = document.createElement('li') //create new li element. In future iteration this should be a table element
-  newTask.innerText = taskDescription.value //stores usr text input into new li
+//FUNCTION creates steps and ingredients LISTS
+function newLine(stepDescription, list) { 
+  let newLi = document.createElement('li') 
+  newLi.innerText = stepDescription.value 
     //Delete Button
   let deleteB = document.createElement('button') 
   deleteB.innerText = "Delete"
@@ -165,46 +156,40 @@ function usrInfo(taskDescription, list) {
   editB.innerText = "Edit"
   editB.type = "edit"
   editB.class = "usrInputEdit"
-  // appending new elements to existing ones in the document. 
+  // appending new elements to existing ones in the document.  
+  newLi.append(editB)
+  newLi.append(deleteB)
+  list.append(newLi)
 
-  //newTask.append(usrTxt)
-  newTask.append(editB)
-  newTask.append(deleteB)
-  list.append(newTask)
+// EVENTLISTENER for DELETE AND EDIT
 
 
-  list.addEventListener("click", (e) => {  //listens to children of parent taskList ("ul") element
-    e.preventDefault()   //This prevents page refresh
-    let indx = e.target.closest('li');   //.closest() method finds element closest to the target with tag "li"
-    if (!indx) return;        //If there is no element the function ends
-    //console.log(e.target)
-    if (e.target.matches("button[type=delete]")){   //if the target matches the element type "button"...
-      indx.remove();   ///the element with tag "li" is removed
-      num -= 1;    //num increments down so new tags can be made
-    }
-    else if(e.target.matches("button[type=edit]")) {
-      indx.childNodes[0].textContent = taskDescriptionText.value  //this edits the text in indx without changing the child nodes. (This odccurs with indx.innerText)
-    }
-    return num;
-    });
+editB.addEventListener("click", (e)=> {
+  e.preventDefault()
+  let indx = e.target.closest('li');  
+  indx.innerText = stepDescription.value;
+
+})
+
+deleteB.addEventListener("click", (e)=> {
+  e.preventDefault()
+  let indx = e.target.closest('li');  
+  indx.remove(); 
+})
+
 }
+  // list.addEventListener("click", (e) => {  
+  //   let indx = e.target.closest('li');  
+  //   if (!indx) return;       
+  //   if (e.target.matches("button[type=delete]")){   //delete button
+  //     indx.remove();   
+  //   }
+  //   else if(e.target.matches("button[type=edit]")) { //edit button
+  //     indx.childNodes[0].textContent = stepDescription.value  
+  //   }
+  //   });
 
-// Delete function
-
-ingredientList.addEventListener("click", (e) => {  //listens to children of parent taskList ("ul") element
-  e.preventDefault()   //This prevents page refresh
-  let indx = e.target.closest('li');   //.closest() method finds element closest to the target with tag "li"
-  if (!indx) return;        //If there is no element the function ends
-  //console.log(e.target)
-  if (e.target.matches("button[type=delete]")){   //if the target matches the element type "button"...
-    indx.remove();   ///the element with tag "li" is removed
-    num -= 1;    //num increments down so new tags can be made
-  }
-  else if(e.target.matches("button[type=edit]")) {
-    indx.childNodes[0].textContent = taskDescription.value  //this edits the text in indx without changing the child nodes. (This odccurs with indx.innerText)
-  }
-  return num;
-  });
+  // }
 
 
 
@@ -212,3 +197,7 @@ ingredientList.addEventListener("click", (e) => {  //listens to children of pare
 
 
 
+
+
+
+// New Zoom Call?

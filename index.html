@@ -2,65 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Flatiron Task Lister</title>
+  <title>RecipeBook</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <div id="main-content">
     <h1 style.font = "Georgia">RecipeBook</h1>
-
-    
   
-    <form id ="userLogin" action ="" method="POST">
+    <!-- <form id ="userLogin" action ="" method="POST">
       <label for="User Login">Sign In</label>
       <input type="text" id="userName" placeholder ="User Name" name="usersname">
       <input type = "submit" value="Submit" id="usrlog">
       <input type= "submit" value="Create an Account" id ="createbutton">
-    </form>
-
-    <!-- <button id="displayNewRecipe">New Recipe</button> -->
+    </form>  -->
 
     </div>
+
     <div id="recipeCollection" >
-      <button  id="submitNewRecipe" >Submit New Recipe</button>
-      <button  id="deleteRecipe" >Delete Recipe</button>
-  
-      <h2 id="recipename">Name</h2>
+      <div id="list">
+        <h2>Previous Recipes</h2>
+        <ul id="recipes">
+        </ul>
+      </div>
+
       <form id ="newrecipe">
-        <!-- <label for="newrecipe">Recipe Name</label> -->
+       <label for="newrecipe">Recipe Name</label> 
         <input type="text" class="newrecipe">
-        <input type="submit" id="new-recipe">
+        <input type="submit" id="new-recipe" value="Submit">
       </form>
      
 
     <div id="stepslist"> 
       <h2>Steps</h2>
       <form id="steps" action="" method="POST">
-        <!-- <label for="new-task-description">Steps</label> -->
         <textarea  type="text" id="newstep" name="newstep"></textarea>
-        <input type="submit" id="stepbutton" value="Submit Direction">
+        <br><input type="submit" id="stepbutton" value="Submit Direction">
       </form>  
-      <ul id="steps">
-      </ul>
     </div>
 
     <div id="ingredientslist">
       <h2>Ingredients</h2>
       <form id="addIngredient" action="" method="POST">
-        <!-- <label for="new-ingredient">Ingredients</label> -->
         <input id="new-ingredient" placeholder="yumm...">
         <input type="submit" id="ingredientsbutton" value="Submit Ingredient">
       </form>
-      <ul id="ingredients">
-      </ul>
     </div>
-  </div>
 
-  <div id="list">
-    <h2>Previous Recipes</h2>
-    <ul id="recipes">
-    </ul>
-  </div>
+    <button  id="submitNewRecipe" >Submit New Recipe</button>
+      <button  id="deleteRecipe" >Delete Recipe</button>
+  
+    </div>
+
+    <div id="displaydiv">
+      <h2 id="recipename"></h2>
+      <ul id="ingredients"> </ul>
+      <ol id="steps"></ol>
+    </div>
+
+
     <script defer src="./index.js"></script>
   </div>
 
