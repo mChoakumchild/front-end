@@ -60,23 +60,58 @@
 //   newLine(recipeText, ingredientList);
 // });
 
-fetch("http://localhost:3000/users/")
+let userBox = document.querySelector("ul#userlist")
+let recipelist = document.querySelector("ul#recipes")
+let ingredientUl = document.querySelector("ul#ingredients");
+let stepsOl = document.querySelector("ol#steps");
+fetch("http://localhost:3000/users")
   .then((r) => r.json())
   .then((userArray) => {
-    console.log(userArray);
+    //console.log(userArray);
 
-    userArray.forEach((userObj) => {
+    userArray.forEach((userObj) => { // userObj -> woody -> buzz
       let username = userObj.username;
-      let imageSrc = userObj.profilepic;
+      let userimage = document.createElement("img")
+      userimage.id = username
+      userimage.src = userObj.profilepic;
+      
 
-      let recipeArray = userObj.recipes[0];
-      newRecipe(recipeArray);
+
+      userimage.addEventListener("click", (event)=> { 
+        recipelist.innerText = ""  // reset Previous Recipes
+
+        userObj.recipes.forEach((recipeobj)=> {  
+        let recipeli = document.createElement('li')
+        recipeli.innerText = recipeobj.name
+        console.log(recipeobj)
+        //EVENTLISTENR TO RECIPE IN RECIPE LIST
+        recipeli.addEventListener("click", (event) => {
+          newRecipe(recipeobj);
+        })
+        recipelist.append(recipeli)
+
+          })
+      })
+      userBox.append(userimage)
+      // let recipeArray = userObj.recipes;
+      // // Recipe Display Function
+      // newRecipe(recipeArray[0]);
+      
+
+
     });
   });
+
+function loadUsers(){
+
+  
+}
 
 recipeDiv = document.querySelector("div#displaydiv");
 //FUNCTION creates steps and ingredients LISTS
 function newRecipe(recipe) {
+  ingredientUl.innerText = ""
+  stepsOl.innerText = ""
   let recipeName = recipe.name;
   let recipeLabel = document.querySelector("h2#recipename");
   recipeLabel.innerText = recipeName;
@@ -91,7 +126,7 @@ function newRecipe(recipe) {
   likeCount.innerText = `${recipe.likes} \u2665❤️✈️`; // cmd + ctr + space form imogi
 
   let ingredients = recipe.ingredients;
-  let ingredientUl = document.querySelector("ul#ingredients");
+  
 
   ingredients.forEach((item) => {
     let newLi = document.createElement("li");
@@ -100,7 +135,7 @@ function newRecipe(recipe) {
   });
 
   let steps = recipe.steps;
-  let stepsOl = document.querySelector("ol#steps");
+  
 
   steps.forEach((item) => {
     let newLi = document.createElement("li");
