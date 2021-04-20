@@ -16,50 +16,57 @@
       <input type= "submit" value="Create an Account" id ="createbutton">
     </form>  -->
 
-    </div>
-
-    <div id="recipeCollection" >
+    <!-- <div id="recipeCollection" > -->
       <div id="list">
         <h2>Previous Recipes</h2>
         <ul id="recipes">
+
+
+
         </ul>
       </div>
 
-      <form id ="newrecipe">
-       <label for="newrecipe">Recipe Name</label> 
-        <input type="text" class="newrecipe">
-        <input type="submit" id="new-recipe" value="Submit">
-      </form>
-     
-
-    <div id="stepslist"> 
-      <h2>Steps</h2>
-      <form id="steps" action="" method="POST">
-        <textarea  type="text" id="newstep" name="newstep"></textarea>
-        <br><input type="submit" id="stepbutton" value="Submit Direction">
-      </form>  
-    </div>
-
-    <div id="ingredientslist">
-      <h2>Ingredients</h2>
-      <form id="addIngredient" action="" method="POST">
-        <input id="new-ingredient" placeholder="yumm...">
-        <input type="submit" id="ingredientsbutton" value="Submit Ingredient">
-      </form>
-    </div>
-
-    <button  id="submitNewRecipe" >Submit New Recipe</button>
-      <button  id="deleteRecipe" >Delete Recipe</button>
+    
   
-    </div>
-
-    <div id="displaydiv">
       <h2 id="recipename"></h2>
-      <ul id="ingredients"> </ul>
+      <img id="foodpic">
+    
+      <div id="displaydiv">
+      <li id="servingsize"></li>
+      <li id="likecount"></li>
+      <h3 id="ingredientsh3">Ingredients</h3>
+      <ul id="ingredients"></ul>
+      <h3 id="stepsh3"> Directions </h3>
       <ol id="steps"></ol>
-    </div>
+      </div>
 
+      <button  id="submitNewRecipe" >Submit New Recipe</button>
+      <button  id="deleteRecipe" >Delete Recipe</button>
 
+    <div id="EditRecipe">
+      <form id ="newrecipe">
+        <label for="newrecipe">Recipe Name</label> 
+         <input type="text" class="newrecipe">
+         <input type="submit" id="new-recipe" value="Submit">
+       </form>
+      
+ <div id="RecipeEditor">
+     <div id="stepslist"> 
+       <h2>Steps</h2>
+       <form id="steps" action="" method="POST">
+         <textarea  type="text" id="newstep" name="newstep"></textarea>
+         <br><input type="submit" id="stepbutton" value="Submit Direction">
+       </form>  
+     </div>
+ 
+     <div id="ingredientslist">
+       <h2>Ingredients</h2>
+       <form id="addIngredient" action="" method="POST">
+         <input id="new-ingredient" placeholder="yumm...">
+         <input type="submit" id="ingredientsbutton" value="Submit Ingredient">
+       </form>
+     </div>
+  </div>
     <script defer src="./index.js"></script>
   </div>
 
