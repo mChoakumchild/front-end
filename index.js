@@ -60,73 +60,81 @@
 //   newLine(recipeText, ingredientList);
 // });
 
-let userBox = document.querySelector("ul#userlist")
-let recipelist = document.querySelector("ul#recipes")
+let userBox = document.querySelector("ul#userlist");
+let recipelist = document.querySelector("ul#recipes");
 let ingredientUl = document.querySelector("ul#ingredients");
 let stepsOl = document.querySelector("ol#steps");
+let recipeCollection = document.querySelector("div#RecipeCollection");
+let recipeLabel = document.querySelector("h2#recipename");
+let servingSize = document.querySelector("li#servingsize");
+
 fetch("http://localhost:3000/users")
   .then((r) => r.json())
   .then((userArray) => {
     //console.log(userArray);
 
-    userArray.forEach((userObj) => { // userObj -> woody -> buzz
+    userArray.forEach((userObj) => {
+      // userObj -> woody -> buzz
       let username = userObj.username;
-      let userimage = document.createElement("img")
-      userimage.id = username
+      let userimage = document.createElement("img");
+      userimage.id = username;
       userimage.src = userObj.profilepic;
-      
 
+      userimage.addEventListener("click", (event) => {
+        recipelist.innerText = ""; // reset Previous Recipes
+        //set recipeDiv to none
+        userObj.recipes.forEach((recipeobj) => {
+          let recipeli = document.createElement("li");
 
-      userimage.addEventListener("click", (event)=> { 
-        recipelist.innerText = ""  // reset Previous Recipes
+          recipeli.innerText = recipeobj.name;
+          let editButton = document.createElement("button");
+          editButton.innerText = "Edit";
+          recipeli.append(editButton);
+          //recipeDiv.style.display = "none";
+          editButton.addEventListener("click", (event) => {
+            console.log(event);
+          });
+          //console.log(recipeobj)
 
-        userObj.recipes.forEach((recipeobj)=> {  
-        let recipeli = document.createElement('li')
-        recipeli.innerText = recipeobj.name
-        console.log(recipeobj)
-        //EVENTLISTENR TO RECIPE IN RECIPE LIST
-        recipeli.addEventListener("click", (event) => {
-          newRecipe(recipeobj);
-        })
-        recipelist.append(recipeli)
+          //EVENTLISTENR TO RECIPE IN RECIPE LIST
+          recipeli.addEventListener("click", (event) => {
+            recipeCollection.style.display = "block";
+            console.log(recipeobj);
 
-          })
-      })
-      userBox.append(userimage)
+            newRecipe(recipeobj);
+
+            // recipeDiv.hidden = false;
+          });
+          recipelist.append(recipeli);
+        });
+      });
+      userBox.append(userimage);
       // let recipeArray = userObj.recipes;
       // // Recipe Display Function
       // newRecipe(recipeArray[0]);
-      
-
-
     });
   });
 
-function loadUsers(){
-
-  
-}
+function loadUsers() {}
 
 recipeDiv = document.querySelector("div#displaydiv");
 //FUNCTION creates steps and ingredients LISTS
 function newRecipe(recipe) {
-  ingredientUl.innerText = ""
-  stepsOl.innerText = ""
+  ingredientUl.innerText = "";
+  stepsOl.innerText = "";
   let recipeName = recipe.name;
-  let recipeLabel = document.querySelector("h2#recipename");
+
   recipeLabel.innerText = recipeName;
 
   let foodpic = document.querySelector("img#foodpic");
   foodpic.src = recipe.foodpic;
 
-  let servingSize = document.querySelector("li#servingsize");
   servingSize.innerText = `Servings: ` + recipe.servings;
 
   let likeCount = document.querySelector("li#likecount");
   likeCount.innerText = `${recipe.likes} \u2665❤️✈️`; // cmd + ctr + space form imogi
 
   let ingredients = recipe.ingredients;
-  
 
   ingredients.forEach((item) => {
     let newLi = document.createElement("li");
@@ -135,7 +143,6 @@ function newRecipe(recipe) {
   });
 
   let steps = recipe.steps;
-  
 
   steps.forEach((item) => {
     let newLi = document.createElement("li");
