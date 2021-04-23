@@ -22,6 +22,7 @@ let userName = document.querySelector("input.userid") // txtbox
 // 1.)
 let recipedisplaytogglediv = document.querySelector("div#recipeDisplay")
 userInput.addEventListener('submit', (e)=> {
+  recipeCollectiondiv.style.display = 'none'
   e.preventDefault()
   recipedisplaytogglediv.style.display = "block"
   let username  = userName.value
@@ -177,7 +178,7 @@ function newList(list, item, input) {
   newLi.append(editB);
   newLi.append(deleteB);
   list.append(newLi);
-console.log("newLine worked once")
+
 newLi.addEventListener("click", (e) => {
   e.preventDefault()
 
@@ -213,6 +214,7 @@ newrecipebutton.addEventListener('click', (e)=> {
     
     }
     else{
+      
       newrecipedisplay.style.display = 'none'
     }
 })
@@ -263,6 +265,7 @@ function deleterecipe () {
 
   userObj.recipes.splice(len, 1)
   //update DOM
+  recipeCollectiondiv.style.display = "none"
   recipelist.innerText = ""
   recipelister(userObj)
     })
@@ -274,19 +277,27 @@ savebutton.addEventListener("click", (e)=> {
     e.preventDefault()
   
  if (recipenum == false) { 
+        newdirections = []
         stepsOl.childNodes.forEach(step => {
         let direction = step.innerText.replace("EditDelete", "")
         newdirections.push(direction)
         })
+        recipeCollectiondiv.style.display = 'none'
         editrecipe(newtitle, newdirections)
     }
   else if (recipenum == true)
   {
-
+    newdirections = []
     newRecipedirectionsOl.childNodes.forEach(step => {
       let direction = step.innerText.replace("EditDelete", "")
       newdirections.push(direction)
+      console.log(newdirections)
       })
+      newRecipeTitle.innerText = ""
+      newRecipedirectionsOl.innerText = ""
+      newRecipeTitle.innerText = ""
+      recipenum = false
+      newrecipedisplay.style.display = 'none'
       postrecipe(newtitle, newdirections)
 
 
@@ -339,6 +350,7 @@ steps: newdirection
 .then(res => res.json())
 .then(res => {
   //update object in memory
+  console.log(res)
   userObj.recipes.push(res)  
   //update DOM
   recipelist.innerText = ""  //reset Previous Recipe
