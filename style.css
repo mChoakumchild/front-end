@@ -41,6 +41,13 @@ img {
   height: 100px;
 }
 
+div#createnewrecipe{
+  display: none;
+}
+
+div#recipeDisplay{
+  display: none;
+}
 div#RecipeCollection {
   display: none;
 }
