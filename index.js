@@ -1,8 +1,10 @@
 
 
 // ADDED Contains all recipe items
-let userBox = document.querySelector("ul#userlist")
-let recipelist = document.querySelector("ul#recipes")
+let userBoxul = document.querySelector("ul#userlist")
+let recipelistul = document.querySelector("ul#recipes")
+let userInputform = document.querySelector("form#userlogin")// form
+let userNameinput = document.querySelector("input.userid") // txtbox
 let recipeDiv = document.querySelector("div#displaydiv");
 let stepsOl = document.querySelector("ol#steps");
 //let likes;
@@ -14,18 +16,16 @@ let recipenumid;
 
 
 
-let userInput = document.querySelector("form#userlogin")// form
-let userName = document.querySelector("input.userid") // txtbox
 
 // Event Listener for User Login
 
 // 1.)
 let recipedisplaytogglediv = document.querySelector("div#recipeDisplay")
-userInput.addEventListener('submit', (e)=> {
+userInputform.addEventListener('submit', (e)=> {
   recipeCollectiondiv.style.display = 'none'
   e.preventDefault()
   recipedisplaytogglediv.style.display = "block"
-  let username  = userName.value
+  let username  = userNameinput.value
   login(username)
 })
 
@@ -52,20 +52,20 @@ function login(username) {
 function showUserInformation(userObj) {
   
     let userimage = document.createElement("img")
-    userBox.innerText = "" // Reset user images
-    recipelist.innerText = ""  //reset Previous Recipe
+    userBoxul.innerText = "" // Reset user images
+    recipelistul.innerText = ""  //reset Previous Recipe
     stepsOl.innerText = "" // reset list of directions
     newtitle = ''; // recent the title
     newdescription = ''; //recent the array of stored directions
     userimage.src = userObj.profilepic;
-    userBox.append(userimage)
+    userBoxul.append(userimage)
     recipelister(userObj)
     
 }
 
 // Create List of Existing Recipes 
 let recipeCollectiondiv = document.querySelector("div#RecipeCollection")
-let recipelistbox = document.querySelector("div#prerecipelist")
+let recipelistboxdiv = document.querySelector("div#prerecipelist")
 function recipelister (userOb){ 
   userObj = userOb
   userOb.recipes.forEach((recipeobj)=> {     //for each recipe stored in userObj
@@ -73,7 +73,7 @@ function recipelister (userOb){
 
     let recipeli = document.createElement('li')
     recipeli.innerText = recipeobj.name
-    recipelist.append(recipeli)
+    recipelistul.append(recipeli)
 
       recipeli.addEventListener("click", (event) => {  // Event listener for each listed recipe
         newRecipe(recipeobj);
@@ -201,7 +201,7 @@ newLi.addEventListener("click", (e) => {
 // New Recipe Display toggle
 let recipenum = false;
 let newrecipebutton = document.querySelector('button#submitNewRecipe')
-let newrecipedisplay = document.querySelector('div#createnewrecipe')
+let newrecipedisplaydiv = document.querySelector('div#createnewrecipe')
 
 
 newrecipebutton.addEventListener('click', (e)=> {
@@ -209,24 +209,24 @@ newrecipebutton.addEventListener('click', (e)=> {
     e.preventDefault()
     recipenum = !recipenum
     if (recipenum == true) {
-    newrecipedisplay.style.display = 'block'
+    newrecipedisplaydiv.style.display = 'block'
     recipeCollectiondiv.style.display = "none"
     
     }
     else{
       
-      newrecipedisplay.style.display = 'none'
+      newrecipedisplaydiv.style.display = 'none'
     }
 })
 //New Recipe Title
 
 let newRecipeSubmit = document.querySelector('form#newrecipe')
 let newRecipeName = document.querySelector('input.newrecipe')
-let newRecipeTitle = document.querySelector('h2#newrecipename')
+let newRecipeTitleh2 = document.querySelector('h2#newrecipename')
   
   newRecipeSubmit.addEventListener('submit', (e)=> {
     e.preventDefault()
-    newRecipeTitle.innerText = newRecipeName.value
+    newRecipeTitleh2.innerText = newRecipeName.value
     newtitle = newRecipeName.value
   })
     
@@ -261,12 +261,12 @@ function deleterecipe () {
     .then(res => res.json)
     .then( () => { 
   //update object in memory
-  let len = recipelist.childNodes.length - 1
+  let len = recipelistul.childNodes.length - 1
 
   userObj.recipes.splice(len, 1)
   //update DOM
   recipeCollectiondiv.style.display = "none"
-  recipelist.innerText = ""
+  recipelistul.innerText = ""
   recipelister(userObj)
     })
 }
@@ -293,11 +293,11 @@ savebutton.addEventListener("click", (e)=> {
       newdirections.push(direction)
       console.log(newdirections)
       })
-      newRecipeTitle.innerText = ""
+      newRecipeTitleh2.innerText = ""
       newRecipedirectionsOl.innerText = ""
-      newRecipeTitle.innerText = ""
+      newRecipeTitleh2.innerText = ""
       recipenum = false
-      newrecipedisplay.style.display = 'none'
+      newrecipedisplaydiv.style.display = 'none'
       postrecipe(newtitle, newdirections)
 
 
@@ -322,11 +322,11 @@ console.log(newtitle, newdirection)
   //update object in memory
  console.log(res)
  
- let len = recipelist.childNodes.length - 1
+ let len = recipelistul.childNodes.length - 1
   
   userObj.recipes[len] = {... res}
   //update DOM
-  recipelist.innerText = ""
+  recipelistul.innerText = ""
   
   recipelister(userObj)
 })
@@ -353,7 +353,7 @@ steps: newdirection
   console.log(res)
   userObj.recipes.push(res)  
   //update DOM
-  recipelist.innerText = ""  //reset Previous Recipe
+  recipelistul.innerText = ""  //reset Previous Recipe
   recipelister(userObj)
 })
 
